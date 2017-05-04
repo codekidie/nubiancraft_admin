@@ -1,0 +1,207 @@
+
+<div id="header_nav"></div>
+	<div id="breadcrumbs">
+		<div class="container">
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li>Edit Materials</li>
+			</ul>
+		</div>
+		<!-- / container -->
+	</div>
+	<!-- / body -->
+
+	<div id="body">
+		<div class="container">
+		
+					<div id="content" class="editMaterialForm">
+					 <h3>Jewelry Materials</h3>
+					 <form enctype='multipart/form-data' id="uploadForm" method="POST">
+								<div id="content" class="formjoborder">
+									<h3>Add Metal Jewelry Form</h3>
+									<label>Name : </label>
+									<input type="text" name="name" ><br>
+									<label>Price : </label>
+									<input type="text"  name="price" ><br>
+									<button type="submit" style="width:150px;padding:10px;color:#fff;background:#999;">Submit</button>
+								</div>
+						</form>
+
+						 <form enctype='multipart/form-data' id="uploadGemForm" method="POST">
+								<div id="content" class="formjoborder">
+									<h3>Add Gems Jewelry Form</h3>
+									<label>Name : </label>
+									<input type="text" name="name" ><br>
+									<label>Price : </label>
+									<input type="text"  name="price" ><br>
+									<label>Gem Size  : </label>
+									<select name="size">
+										<option>0.01Ct</option>
+										<option>0.02Ct</option>
+										<option>0.03Ct</option>
+										<option>0.05Ct</option>
+										<option>0.08Ct</option>
+										<option>0.10Ct</option>
+										<option>0.33Ct</option>
+										<option>0.50Ct</option>
+										<option>1.00Ct</option>
+										
+									</select>
+									<button type="submit" style="width:150px;margin-top:10px;padding:10px;color:#fff;background:#999;">Submit</button>
+								</div>
+						</form>
+					</div>
+			</form>
+			<!-- / content -->
+			<div id="content">
+			   <div class="row">
+					<div class="col-md-6">
+							<div id="metal-data"></div>
+					</div>
+					<div class="col-md-6">
+							<div id="gem-data"></div>
+					</div>
+								   	
+			   </div>
+			</div>
+		</div>
+		<!-- / container -->
+	</div>
+	<!-- / body -->
+
+
+
+	<div id="root"></div>
+
+
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script>window.jQuery || document.write("<script src='js/jquery-1.11.1.min.js'>\x3C/script>")</script>
+	<script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="js/jquery-confirm.min.js"></script>
+	<script src="js/jquery.dataTables.min.js"></script>
+
+
+	<script type="text/javascript">
+	var getUrl = window.location;
+	    var baseUrl = "http://localhost/jewelry_api/";
+		$("#uploadForm").on('submit',(function(e){
+			e.preventDefault();
+			$.ajax({
+					url: baseUrl+"metal/create",
+					type: "POST",
+					data:  new FormData(this),
+					contentType: false,
+					cache: false,
+					processData:false,
+				success: function(data){
+					getMetal();
+		   			$('#table1').DataTable();
+
+				},
+				error: function(){} 	        
+				});
+		  }));
+
+
+		$("#uploadGemForm").on('submit',(function(e){
+			e.preventDefault();
+			$.ajax({
+					url: baseUrl+"gem/create",
+					type: "POST",
+					data:  new FormData(this),
+					contentType: false,
+					cache: false,
+					processData:false,
+				success: function(data){
+					getGem();
+		   			$('#table2').DataTable();
+				},
+				error: function(){} 	        
+				});
+		  }));
+
+
+		function getMetal()
+		{
+			$.ajax({
+					url: baseUrl+"metal/",
+					type: "GET",
+					success: function(data){
+							$("#metal-data").html(data);
+		   					$('#table1').DataTable();
+					},
+					error: function(){} 	        
+			});
+		}
+
+
+		function getGem()
+		{
+			$.ajax({
+					url: baseUrl+"gem/",
+					type: "GET",
+					success: function(data){
+							$("#gem-data").html(data);
+		   					$('#table2').DataTable();
+					},
+					error: function(){} 	        
+			});
+		}
+
+		function deleteGem(id)
+		{
+
+			$.confirm({
+			    title: 'Are You Sure You Want To Delete?',
+			    content: '',
+			    buttons: {
+			        confirm: function () {
+			           $.ajax({
+								url: baseUrl+"gem/delete/"+id,
+								type: "GET",
+								success: function(data){
+										$("#gem-data").html(data);
+		   								$('#table2').DataTable();
+								},
+								error: function(){} 	        
+						});
+			        },
+			        cancel: function () {
+			            $.alert('Canceled!');
+			        },
+			    }
+			});
+		}
+
+		function deleteMetal(id)
+		{
+			$.confirm({
+			    title: 'Are You Sure You Want To Delete?',
+			    content: '',
+			    buttons: {
+			        confirm: function () {
+			           $.ajax({
+								url: baseUrl+"metal/delete/"+id,
+								type: "GET",
+								success: function(data){
+										$("#metal-data").html(data);
+		   								$('#table1').DataTable();
+								},
+								error: function(){} 	        
+						});
+			        },
+			        cancel: function () {
+			            $.alert('Canceled!');
+			        },
+			    }
+			});
+		}
+
+		getGem();
+		getMetal();
+	</script>
+
+</body>
+</html>

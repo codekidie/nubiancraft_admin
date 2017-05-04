@@ -1,0 +1,131 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<div id="header_nav"></div>
+	<div id="breadcrumbs">
+		<div class="container">
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li>Joborder</li>
+			</ul>
+		</div>
+		<!-- / container -->
+	</div>
+	<!-- / body -->
+
+	<div id="body">
+		<div class="container">
+			
+					<div id="fb-data"></div>
+		</div>
+		<!-- / container -->
+	</div>
+	<!-- / body -->
+
+
+
+<!-- Modal -->
+
+         
+    
+
+	
+
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script>window.jQuery || document.write("<script src='js/jquery-1.11.1.min.js'>\x3C/script>")</script>
+	<script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="js/jquery-confirm.min.js"></script>
+	<script src="js/jquery.dataTables.min.js"></script>
+	<script type="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<script type="text/javascript">
+		var getUrl = window.location;
+	    var baseUrl = "http://localhost/jewelry_api/";
+		getJobOrder();
+		function deleteJobOrder(id)
+		{
+				$.confirm({
+				    title: 'Are You Sure You Want To Delete?',
+				    content: '',
+				    buttons: {
+				        confirm: function () {
+				           $.ajax({
+									url: baseUrl+"joborder/delete/"+id,
+									type: "GET",
+									success: function(data){
+					  						getJobOrder();
+					  						
+									},
+									error: function(){} 	        
+							});
+				        },
+				        cancel: function () {
+				            $.alert('Canceled!');
+				        },
+				    }
+				});
+			}
+
+
+
+		function getJobOrder()
+		{
+			$.ajax({
+					url: baseUrl+"joborder/",
+					type: "GET",
+					success: function(data){
+							$("#fb-data").html(data);
+							  $('#table1').DataTable();
+							  $('#table2').DataTable();
+
+					},
+					error: function(){} 	        
+			});
+		}
+
+
+		function updateJo(id)
+		{
+				$.ajax({
+                        url: baseUrl+"rester/updatejo/"+id,
+                        type: "GET",
+                        success: function(data){
+							$('#fb-data').html(data+'<button type="button" class="btn btn-success" onclick="submitjo()">Submit</button>');
+                        },
+                        error: function(){
+                            alert("Cant Get Content");
+                        }             
+                });
+		}
+
+		function submitjo()
+		{
+			var gemcost = $('#gemcost').val();
+			var metalcost = $('#metalcost').val();
+			var weight = $('#weight').val();
+			var numberofgems = $('#numberofgems').val();
+			var laborcost = $('#laborcost').val();
+			var deposit = $('#deposit').val();
+			var id = $('#updatejo_id').val();
+
+				$.ajax({
+                        url: baseUrl+"rester/savejoupdated/"+id+"/"+gemcost+"/"+metalcost+"/"+weight+"/"+numberofgems+"/"+laborcost+"/"+deposit+"/",
+                        type: "GET",
+                        success: function(data){
+                        	alert('Data Updated Success!')
+					  						getJobOrder();
+                        	
+                        },
+                        error: function(){
+                            alert("Error Updating Something Went Wrong!");
+                        }             
+                });
+		}
+
+		</script>
+
+</body>
+</html>

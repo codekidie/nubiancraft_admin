@@ -1,0 +1,169 @@
+
+<div id="header_nav"></div>
+	<div id="breadcrumbs">
+		<div class="container">
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li>Jewelry Form</li>
+			</ul>
+		</div>
+		<!-- / container -->
+	</div>
+	<!-- / body -->
+
+	<div id="body">
+		<div class="container">
+			<form enctype='multipart/form-data' id="uploadForm" method="POST">
+					<div id="content" class="formjoborder">
+						<h3>Jewelry Form</h3>
+						<label>Material Name : </label>
+						<input type="text" name="materialname" id="material_name"><br>
+						<label>Material Image : </label>
+						<input type="file"  name="materialimage"   id="material_image"><br>
+						<label>Labor Cost  : </label>
+						<input type="text"  name="laborcost"   id="cost"><br>
+
+						<label>Weight  : </label>
+						<input type="text"  name="weight"   id="weight"><br>
+
+						<label>Min Size  : </label>
+						<select id="minsize">
+							<option>0.01Ct</option>
+							<option>0.02Ct</option>
+							<option>0.03Ct</option>
+							<option>0.05Ct</option>
+							<option>0.08Ct</option>
+							<option>0.10Ct</option>
+							<option>0.33Ct</option>
+							<option>0.50Ct</option>
+							<option>1.00Ct</option>
+							<option>Small</option>
+							<option>Medium</option>
+						</select>
+
+						<label>Max Size  : </label>
+						<select onchange="getMax(this);" id="maxsize">
+							<option>0.01Ct</option>
+							<option>0.02Ct</option>
+							<option>0.03Ct</option>
+							<option>0.05Ct</option>
+							<option>0.08Ct</option>
+							<option>0.10Ct</option>
+							<option>0.33Ct</option>
+							<option>0.50Ct</option>
+							<option>1.00Ct</option>
+							
+
+
+						</select>
+						<input type="hidden" name="gemsize" id="gemsize">
+						<br>
+						
+						<label>Type  : </label>
+						<select name="type">
+							<option>Ring</option>
+							<option>Necklace</option>
+							<option>Bracelet</option>
+							<option>Earings</option>
+						</select>
+
+						<br>
+						<label>Number Of Gems  : </label>
+						<input type="text"  name="numberofgems"   id="numberofgems"><br>
+					
+						<button type="submit" style="width:150px;padding:10px;color:#fff;background:#999;">Submit</button>
+					</div>
+			</form>
+			<!-- / content -->
+			<div id="content">
+					<div id="fb-data"></div>
+			</div>
+		</div>
+		<!-- / container -->
+	</div>
+	<!-- / body -->
+
+
+
+	<div id="root"></div>
+
+
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script>window.jQuery || document.write("<script src='js/jquery-1.11.1.min.js'>\x3C/script>")</script>
+	<script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="js/jquery-confirm.min.js"></script>
+	<script src="js/jquery.dataTables.min.js"></script>
+
+	<script type="text/javascript">
+		var getUrl = window.location;
+	    var baseUrl = "http://localhost/jewelry_api/";
+
+		$("#uploadForm").on('submit',(function(e){
+			e.preventDefault();
+			$.ajax({
+					url: baseUrl+"material/create",
+					type: "POST",
+					data:  new FormData(this),
+					contentType: false,
+					cache: false,
+					processData:false,
+				success: function(data){
+					getJewelry();
+				},
+				error: function(){} 	        
+				});
+		  }));
+
+		function getMax(data)
+		{
+			var min = $('#minsize').val();
+		   	var max = $('#maxsize').val();
+			$('#gemsize').val(min+"-"+max);
+		}
+
+		
+		function deleteMaterial(id)
+		{
+			$.confirm({
+			    title: 'Are You Sure You Want To Delete?',
+			    content: '',
+			    buttons: {
+			        confirm: function () {
+			           $.ajax({
+								url:  baseUrl+"material/delete/"+id,
+								type: "GET",
+								success: function(data){
+										$("#fb-data").html(data);
+                               			$('#table1').DataTable();
+								},
+								error: function(){} 	        
+						});
+			        },
+			        cancel: function () {
+			            $.alert('Canceled!');
+			        },
+			    }
+			});
+		}
+
+		function getJewelry()
+		{
+			$.ajax({
+					url:  baseUrl+"material/",
+					type: "GET",
+					success: function(data){
+							$("#fb-data").html(data);
+                   			$('#table1').DataTable();
+		   					
+							
+					},
+					error: function(){} 	        
+			});
+		}
+		getJewelry();
+	</script>
+
+</body>
+</html>

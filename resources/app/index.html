@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Jewelry App</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    
+  </head>
+  <body>
+
+    <div class="login-page">
+    <center><h1> Nubian Craft Goldsmith</h1></center>
+    
+    <div class="form">
+      <form class="login-form" method="POST">
+        <div id="warning_login"></div>
+        <input type="email" id="username" name="username" placeholder="username"/>
+        <input type="password" id="password" name="password" placeholder="password"  />
+        <button id="loginbutton" style="margin-top:10px !important; ">login</button>
+      </form>
+    </div>
+  </div> 
+
+
+  <!-- Insert this line above script imports  -->
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+  <!-- normal script imports etc  -->
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js" ></script>
+    <script type="text/javascript" src="js/login.js" ></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+
+  <!-- Insert this line after script imports -->
+  <script>if (window.module) module = window.module;</script>
+  </body>
+   
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  </script>
+</html>

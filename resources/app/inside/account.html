@@ -1,0 +1,66 @@
+<div id="header_nav"></div>
+	<div id="breadcrumbs">
+		<div class="container">
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li>Accounts</li>
+			</ul>
+		</div>
+		<!-- / container -->
+	</div>
+
+<div class="container">
+
+<div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-4">
+		<form  method="POST" id="submitform">
+			<h2>Add new account</h2>
+            <hr/>
+			<div class="row">
+				<div class="col-xs-6 col-sm-6 col-md-6">
+					<div class="form-group">
+                        <input type="text" name="firstname" id="first_name" class="form-control input-lg" placeholder="First Name" tabindex="1">
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6">
+					<div class="form-group">
+						<input type="text" name="lastname" id="last_name" class="form-control input-lg" placeholder="Last Name" tabindex="2">
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<input type="text" name="phone" id="phone_number" class="form-control input-lg" placeholder="Phone Number" tabindex="3">
+			</div>
+			<div class="form-group">
+				<input type="email" name="username" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+			</div>
+				<div class="form-group">
+				<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+			</div>
+            <hr/>
+			<div class="row">
+				<div class="col-xs-6 col-md-6">
+						<button type="submit" style="width:150px;padding:10px;color:#fff;background:#999;">Add New Account</button>
+				</div>		
+			</div>
+		</form>
+	</div>
+	 <div class="col-xs-12 col-sm-8 col-md-4">
+	 	<div id="user_data"></div>
+	 </div>
+</div>
+</div>
+<!-- / body -->
+
+	
+
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<!-- <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> -->
+	<script>window.jQuery || document.write("<script src='js/jquery-1.11.1.min.js'>\x3C/script>")</script>
+	<script src="js/plugins.js"></script>
+		<script src="js/jquery.dataTables.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/account.js"></script>
+	<script src="js/custom.js"></script>
+</body>
+</html>
